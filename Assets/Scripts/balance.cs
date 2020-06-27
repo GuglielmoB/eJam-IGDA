@@ -48,7 +48,7 @@ public class balance : MonoBehaviour
         // move away from the target
         Vector3 dir = trans.position - targetObject.position;
         dir.Normalize();
-        transform.Translate(dir * 0.5f * Time.deltaTime);
+        trans.Translate(dir * 0.5f * Time.deltaTime);
     }
 
 
@@ -63,10 +63,10 @@ public class balance : MonoBehaviour
         //float x_from_edge = collider.radius - x_diff;
         //float y_from_edge = collider.radius - y_diff;
 
-        print("x movement is " + x_diff);
-        print("y movement is " + y_diff);
+        Vector3 movement = new Vector3(x_diff, y_diff, 0f);
 
         // push the object
-        trans.position = new Vector3(trans.position.x + x_diff, trans.position.y + y_diff, trans.position.z);
+        // trans.position = new Vector3(trans.position.x + x_diff, trans.position.y + y_diff, trans.position.z);
+        trans.Translate(movement * 10 * Time.deltaTime);
     }
 }
