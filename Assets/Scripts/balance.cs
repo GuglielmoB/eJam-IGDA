@@ -27,13 +27,14 @@ public class balance : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Vector3 pos = Input.mousePosition;
             Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(pos));
             if (hitCollider != null && hitCollider.name == collider.name)
             {
-                trans.position = new Vector3(trans.position.x, startingY, trans.position.z);
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(pos);
+                moveObject(mousePos);
             }
         }
 
@@ -44,6 +45,25 @@ public class balance : MonoBehaviour
         }
 
         // Lower the object's y position
-        trans.position = new Vector3(trans.position.x, trans.position.y - 0.01f, trans.position.z);
+        trans.position = new Vector3(trans.position.x, trans.position.y - 0.005f, trans.position.z);
+    }
+
+
+    // NOTE: this code doesn't really give a smooth push, but it's workable for now so it'll have to do
+    private void moveObject(Vector3 mousePosition)
+    {
+        // get the difference in x and y between the object centre and the mouse
+        float x_diff = trans.position.x - mousePosition.x;
+        float y_diff = trans.position.y - mousePosition.y;
+
+        // flip that to get the difference between the object's edge and the mouse
+        //float x_from_edge = collider.radius - x_diff;
+        //float y_from_edge = collider.radius - y_diff;
+
+        print("x movement is " + x_diff);
+        print("y movement is " + y_diff);
+
+        // push the object
+        trans.position = new Vector3(trans.position.x + x_diff, trans.position.y + y_diff, trans.position.z);
     }
 }
