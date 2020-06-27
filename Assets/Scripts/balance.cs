@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class balance : MonoBehaviour
 {
-    // The minimum threshold of the balance object's y for it to be in balance
-    public float balanceMinY = -5.0f;
+    // The distance from the target object that this object can go before the character loses balance
+    public float failDistance = 2.0f;
 
-    private float startingY;
+    // the target object
+    [SerializeField] Transform targetObject;
 
     private Transform trans;
     private CircleCollider2D collider;
@@ -18,7 +19,7 @@ public class balance : MonoBehaviour
         trans = GetComponent<Transform>();
         collider = GetComponent<CircleCollider2D>();
 
-        startingY = trans.position.y;
+        trans.position = new Vector3(targetObject.position.x, targetObject.position.y - 0.001f, targetObject.position.z);
 
         
     }
@@ -38,14 +39,16 @@ public class balance : MonoBehaviour
             }
         }
 
-        // If the object's y is lower than the minimum allowed
-        if (trans.position.y <= balanceMinY)
+        // if the distance between this object and the target > the limit, we fail
+        if (Vector3.Distance(trans.position, targetObject.position) > failDistance)
         {
-            print("failed");
+            print("Balance lost");
         }
 
-        // Lower the object's y position
-        trans.position = new Vector3(trans.position.x, trans.position.y - 0.005f, trans.position.z);
+        // move away from the target
+        Vector3 dir = trans.position - targetObject.position;
+        dir.Normalize();
+        transform.Translate(dir * 0.5f * Time.deltaTime);
     }
 
 
