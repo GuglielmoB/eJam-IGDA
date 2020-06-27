@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     {
         private Collision coll;
         public Rigidbody2D rb;
+        public movementStats stats;
 
         public float speed = 10;
         public float jumpForce = 50;
@@ -28,6 +29,7 @@ public class Movement : MonoBehaviour
         {
             coll = GetComponent<Collision>();
             rb = GetComponent<Rigidbody2D>();
+            stats = GetComponent<movementStats>();
         }
 
         // Update is called once per frame
@@ -41,28 +43,28 @@ public class Movement : MonoBehaviour
 
             Walk(dir);
 
-            /*
+            
             if (coll.onWall && Input.GetButton("Fire3") && canMove)
             {
                 wallGrab = true;
                 wallSlide = false;
             }
-            */
+            
 
             if (Input.GetButtonUp("Fire3") || !coll.onWall || !canMove)
             {
 
-            /*
+            
                 wallGrab = false;
                 wallSlide = false;
-            */
+            
             }
 
             if (coll.onGround)
             {
                 GetComponent<BetterJumping>().enabled = true;
             }
-            /*
+               
             if (wallGrab)
             {
                 rb.gravityScale = 0;
@@ -77,7 +79,7 @@ public class Movement : MonoBehaviour
             {
                 rb.gravityScale = 3;
             }
-            */
+            
 
             if (coll.onWall && !coll.onGround)
             {
