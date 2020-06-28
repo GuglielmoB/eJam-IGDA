@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -13,15 +14,15 @@ public class supporterText : MonoBehaviour {
     {
         messages = new Dictionary<float, string>
         {
-            {2.0f, "test message"},
+            {2.0f, "test message"}
         };
 
         textField = GetComponent<Text>();
 
-        gameObject.SetActive(false);
+        textField.enabled = false;
     }
 
-    public void SayLine(float timeOfLine)
+    public IEnumerator SayLine(float timeOfLine)
     {
 
         print("called at supporterText.cs");
@@ -32,17 +33,13 @@ public class supporterText : MonoBehaviour {
 
         textField.text = lineToSay;
 
-        gameObject.SetActive(true);
+        
+        textField.enabled = true;
 
         time_up = 3.0f;
-
-        while (time_up > 0.0f)
-        {
-            time_up -= Time.deltaTime;
-        }
-
-        gameObject.SetActive(false);
-
-
+        yield return new WaitForSeconds(time_up);
+        textField.enabled = false;
     }
+    
+    
 }
