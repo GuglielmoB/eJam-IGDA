@@ -21,7 +21,7 @@ public class balance : MonoBehaviour
 
         trans.position = new Vector3(targetObject.position.x, targetObject.position.y - 0.001f, targetObject.position.z);
 
-        
+
     }
 
     // Update is called once per frame
