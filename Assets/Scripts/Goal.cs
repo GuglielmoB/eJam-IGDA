@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Goal : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Goal : MonoBehaviour
                 print("called at Goal.cs");
 
                 // Call the support character text box to say a line
-                supporterTextClass.SayLine(messageTimings[0]);
+                supporterTextClass.StartCoroutine(supporterTextClass.SayLine(messageTimings[0]));
 
                 // remove that item from the list
                 messageTimings.RemoveAt(0);
